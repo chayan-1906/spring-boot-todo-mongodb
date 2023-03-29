@@ -23,6 +23,16 @@ public class TodoController {
 		else return new ResponseEntity<> ( "No Todos found", HttpStatus.NOT_FOUND );
 	}
 
+	@GetMapping("/todos/{todoId}")
+	public ResponseEntity<?> getTodoById(@PathVariable String todoId) {
+		try {
+			TodoDTO todoDTO = todoRepository.findById ( todoId ).get ( );
+			return new ResponseEntity<> ( todoDTO, HttpStatus.OK );
+		} catch (Exception e) {
+			return new ResponseEntity<> ( "Todo with ID " + todoId + " not found", HttpStatus.NOT_FOUND );
+		}
+	}
+
 	@PostMapping("/todos")
 	public ResponseEntity<?> createTodo(@RequestBody TodoDTO todoDTO) {
 		try {
@@ -31,16 +41,6 @@ public class TodoController {
 			return new ResponseEntity<TodoDTO> ( todoDTO, HttpStatus.OK );
 		} catch (Exception e) {
 			return new ResponseEntity<> ( e.getMessage ( ), HttpStatus.INTERNAL_SERVER_ERROR );
-		}
-	}
-
-	@GetMapping("/todos/{todoId}")
-	public ResponseEntity<?> getTodoById(@PathVariable String todoId) {
-		try {
-			TodoDTO todoDTO = todoRepository.findById ( todoId ).get ( );
-			return new ResponseEntity<> ( todoDTO, HttpStatus.OK );
-		} catch (Exception e) {
-			return new ResponseEntity<> ( "Todo with ID " + todoId + " not found", HttpStatus.NOT_FOUND );
 		}
 	}
 
