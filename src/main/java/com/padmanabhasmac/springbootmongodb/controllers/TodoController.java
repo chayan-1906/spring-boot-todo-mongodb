@@ -1,7 +1,10 @@
 package com.padmanabhasmac.springbootmongodb.controllers;
 
+import com.padmanabhasmac.springbootmongodb.exceptions.TodoCollectionException;
 import com.padmanabhasmac.springbootmongodb.models.TodoDTO;
 import com.padmanabhasmac.springbootmongodb.repositories.ITodoRepository;
+import com.padmanabhasmac.springbootmongodb.services.ITodoService;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +19,14 @@ public class TodoController {
 	@Autowired
 	private ITodoRepository todoRepository;
 
+	@Autowired
+	private ITodoService todoService;
+
 	@GetMapping("/todos")
 	public ResponseEntity<?> getAllTodos() {
-		List<TodoDTO> todos = todoRepository.findAll ( );
-		if (todos.size ( ) > 0) return new ResponseEntity<List<TodoDTO>> ( todos, HttpStatus.OK );
-		else return new ResponseEntity<> ( "No Todos found", HttpStatus.NOT_FOUND );
+		List<TodoDTO> todos = todoRepository.findAll();
+		if (todos.size() > 0) return new ResponseEntity<List<TodoDTO>>(todos, HttpStatus.OK);
+		else return new ResponseEntity<>("No Todos found", HttpStatus.NOT_FOUND);
 	}
 
 	@GetMapping("/todos/{todoId}")
@@ -36,11 +42,12 @@ public class TodoController {
 	@PostMapping("/todos")
 	public ResponseEntity<?> createTodo(@RequestBody TodoDTO todoDTO) {
 		try {
-			todoDTO.setCreatedAt ( new Date ( System.currentTimeMillis ( ) ) );
-			todoRepository.save ( todoDTO );
-			return new ResponseEntity<TodoDTO> ( todoDTO, HttpStatus.OK );
-		} catch (Exception e) {
-			return new ResponseEntity<> ( e.getMessage ( ), HttpStatus.INTERNAL_SERVER_ERROR );
+			todoService.createTodo(todoDTO);
+			return new ResponseEntity<TodoDTO>(todoDTO, HttpStatus.OK);
+		} catch (ConstraintViolationException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
+		} catch (TodoCollectionException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
 		}
 	}
 

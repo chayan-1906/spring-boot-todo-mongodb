@@ -1,5 +1,6 @@
 package com.padmanabhasmac.springbootmongodb.models;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,10 +20,13 @@ public class TodoDTO {
 	@Id
 	private String id;
 
+	@NotNull(message = "todo cannot be null")
 	private String todo;
 
+	@NotNull(message = "description cannot be null")
 	private String description;
 
+	@NotNull(message = "completed cannot be null")
 	private boolean completed;
 
 	private Date createdAt;
