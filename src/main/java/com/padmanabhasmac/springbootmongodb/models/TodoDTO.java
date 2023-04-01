@@ -17,19 +17,31 @@ import java.util.Date;
 @Document(collection = "todos")
 public class TodoDTO {
 
-	@Id
-	private String id;
+    @Id
+    private String id;
 
-	@NotNull(message = "todo cannot be null")
-	private String todo;
+    @NotNull(message = "todo cannot be null")
+    private String todo;
 
-	@NotNull(message = "description cannot be null")
-	private String description;
+    @NotNull(message = "description cannot be null")
+    private String description;
 
-	@NotNull(message = "completed cannot be null")
-	private boolean completed;
+    @NotNull(message = "completed cannot be null")
+    private boolean completed;
 
-	private Date createdAt;
+    private Date createdAt;
 
-	private Date updatedAt;
+    private Date updatedAt;
+
+//    @Override
+//    public String toString() {
+//        return "TodoDTO{" +
+//                "id='" + id + '\'' +
+//                ", todo='" + todo + '\'' +
+//                ", description='" + description + '\'' +
+//                ", completed=" + completed +
+//                ", createdAt=" + createdAt +
+//                ", updatedAt=" + updatedAt +
+//                '}';
+//    }
 }
