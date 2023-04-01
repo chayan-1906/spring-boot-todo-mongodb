@@ -21,3 +21,4 @@ Route | METHOD | Description
 * [Spring Boot Devtools](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools)
 * [Lombok](https://mvnrepository.com/artifact/org.projectlombok/lombok)
 * [Spring Boot Starter Test](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test)
+* [Spring Boot Starter Validation](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation)
