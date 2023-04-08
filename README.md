@@ -1,4 +1,4 @@
-## Spring Boot Mongo DB Crud
+# Spring Boot Mongo DB Crud
 
 Demo TODO application built on SpringBoot and MongoDB
 <br>
